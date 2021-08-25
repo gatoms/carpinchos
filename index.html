@@ -1,0 +1,52 @@
+<html>
+    <head lang='es'>
+        <link href="style.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <title>Carpinchos Club</title>
+    </head>
+    <body>
+        <audio id='pickup'><source src='Pickup_Coin.wav'></audio>
+        <section id='section'></section>
+        <h1 class="clase1"><img src="carpinchos/carp.gif" class="gif">Museo de Carpinchos<img src="carpinchos/carp.gif" class="gif"></h1>
+        <video src="https://www.youtube.com/watch?v=RRrCMrZapTQ"></video>
+        <div class='izq'>
+            <a href='https://www.youtube.com/watch?v=RRrCMrZapTQ'  target='blank'>
+                <img class='izq' src="carpinchos/1.jpg" >
+            </a>
+            <img src="carpinchos/2.jpg">
+            <img src="carpinchos/4.jpg">
+            <img src="carpinchos/5.jpg">
+            <img src="carpinchos/7.jpg">
+        </div>
+        <div class='der'>
+            <img src="carpinchos/8.jpg">
+            <img src="carpinchos/9.jpg">
+            <img src="carpinchos/10.jpg">
+            <img src="carpinchos/11.jpg">
+            <img src="carpinchos/12.jpg">
+        </div>
+        <div id='monedero'>Monedero: <span id='monederoR'>0</span>$</div>
+        <div id='ruleta'>
+            <video id='videito' src="ruleta.webm" width="300" onended='premio()'></video>
+            <br>
+            <button id='rulbot' onclick="ruleta()">Ruleta</button>
+            <div id='cajaPremio' class='cajaP'>
+                <div class='contenido-cajaP'>
+                    <p>Premio</p>
+                    <img id='premiesito'>
+                    <br>
+                    <button onclick='cerrar()'>Okay grax</button>
+                </div>
+            </div>
+        </div>
+        <p>Liquida canguros para poder ruletear</p>
+        <br><br>
+        <button id="id1" onclick='moneyy();boton();'>Cada click liquida un canguro: <a id='conteo'>0</a></button>
+        <p>Este sitio esta dedicado a los carpinchos veteranos de guerra en el conflicto belico contra canguros en 1972.</p>
+        <script src="js/boton.js"></script>
+        <script src='js/moneda.js'></script>
+    </body>
+</html>
+
+<!--Contador de muertes en el button, con jss (completado, pero robado de google)-->
+<!--Gif con el contador de muertes-->
