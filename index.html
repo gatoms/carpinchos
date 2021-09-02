@@ -25,7 +25,8 @@
             <img src="carpinchos/11.jpg">
             <img src="carpinchos/12.jpg">
         </div>
-        <div id='monedero'>Monedero: <span id='monederoR'>0</span>$</div>
+        <div id='monedero' class="fijo">Monedero: <span id='monederoR'>0</span>$</div>
+        <div id='biblioteca' class="fijo" onclick="guardarPremio()">Biblioteca</div>
         <div id='ruleta'>
             <video id='videito' src="ruleta.webm" width="300" onended='premio()'></video>
             <br>
@@ -35,7 +36,7 @@
                     <p>Premio</p>
                     <img id='premiesito'>
                     <br>
-                    <button onclick='cerrar()'>Okay grax</button>
+                    <button onclick='cerrarGuardar()'>Okay grax</button>
                 </div>
             </div>
         </div>
@@ -43,6 +44,8 @@
         <br><br>
         <button id="id1" onclick='moneyy();boton();'>Cada click liquida un canguro: <a id='conteo'>0</a></button>
         <p>Este sitio esta dedicado a los carpinchos veteranos de guerra en el conflicto belico contra canguros en 1972.</p>
+        <br><br>
+        <img id='premiosGuardados'>
         <script src="js/boton.js"></script>
         <script src='js/moneda.js'></script>
     </body>

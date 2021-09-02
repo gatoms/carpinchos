@@ -13,16 +13,23 @@ div img{
     align-items: center;
 }
 
-#monedero{
+.fijo{
     font-size: 40px;
     background-color: cornflowerblue;
     border: 2px black;
     width: 300px;
     position: fixed;
-    bottom: 0;
-    right: 0;
     font-family: 'Franklin Gothic Medium';
     font-weight: bold;
+}
+#biblioteca{
+    bottom: 0;
+    left: 0;
+}
+
+#monedero{
+    bottom: 0;
+    right: 0;
 }
 
 #ruleta{
@@ -98,6 +105,40 @@ div+p{
 img.gif{
     height: 100px;
     width: 100px;
+}
+
+.centrado{
+    text-align: center;
+    border: blue 2px solid;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.center{
+    text-align: center;
+}
+
+button{
+    padding: 3px;
+    margin: 5px;
+    background-color: lightblue;
+}
+
+.borrar{
+    background-color: tomato;
+}
+
+.chiquitas{
+    height: 100px;
+    width: 100px;
+    display: inline;
+    margin: 5px;
+    border: black 2px solid;
+}
+
+.chiquitas:hover{
+    height: 150px;
+    width: 150px;
 }
 
 

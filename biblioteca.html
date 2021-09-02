@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblitoeca</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body onload="cargar()">
+    <h1 class="clase1"><img src="carpinchos/carp.gif" class="gif">Biblioteca de Carpinchos<img src="carpinchos/carp.gif" class="gif"></h1>
+    <button onclick="mostrarPremio()">Mostrar ultimos</button>
+    <button onclick='mostrarGuardados()'>Mostrar guardados</button>
+    <div id='cuerpo' class="centrado">Premios guardados<div id='premiosGuardados'></div></div>
+    <br><br>
+    <div class="centrado">Ultimos Premios<div id="ultimosPremios"></div></div>
+
+    <div id='cajaPremio' class='cajaP center'>
+        <div class='contenido-cajaP'>
+            <p>Ultima</p>
+            <img id='ultimoClickeado'>
+            <br>
+            <button onclick='cerrarGuardarPremio()'>Guardar</button>
+            <button onclick='cerrar2()'>Cerrar</button>
+        </div>
+    </div>
+    <div id='guardadoPremio' class='cajaP center'>
+        <div class='contenido-cajaP'>
+            <p>Premio</p>
+            <img id='guardadoClickeado'>
+            <br>
+            <button onclick='borrarPremio()' class="borrar">Borrar</button>
+            <button onclick='cerrar3()'>Cerrar</button>
+        </div>
+    </div>
+    <div id='biblioteca' class='fijo' onclick="window.location.href = 'index.html'">Ruleta</div>
+    <script src="js/boton.js"></script>
+    <script src='js/moneda.js'></script>
+</body>
+</html>
