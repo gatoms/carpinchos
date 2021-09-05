@@ -1,6 +1,7 @@
 var x=0;
 var cajaP=document.getElementById('cajaPremio');
 var botonRul = document.getElementById('rulbot');
+var variablePremio = ''
 const url = 'https://gatoms.github.io/panaderia/carpinchos.json'
 const ultimos = []
 
@@ -33,6 +34,7 @@ function premio(){
     fetch(url).then(respuesta=>respuesta.json()).then(datos=>{
         var rareza = Math.floor(Math.random()*68);
         document.getElementById('premiesito').setAttribute('src', datos[rareza].srcImg);
+        ultimos.push(datos[rareza])
     });
 }
 
@@ -58,11 +60,12 @@ function guardarPremio(){
     window.location.href = 'biblioteca.html';
 }
 
-function cerrarGuardar(){
+//Funcion vieja de cerrar
+/*function cerrarGuardar(){
     cerrar();
     let premio = document.getElementById('premiesito').src;
     ultimos.push(premio);
-}
+}*/
 
 function mostrar(id){
     cajaP.style.display= 'block';
@@ -87,7 +90,7 @@ function mostrarPremio(){
             imag.setAttribute('onclick', 'mostrar(this.id)');
             imag.setAttribute('class', 'chiquitas')
             document.getElementById('ultimosPremios').appendChild(imag);
-            document.getElementById('ultimo' + i).src = mis_datos[i];
+            document.getElementById('ultimo' + i).src = mis_datos[i].srcImg;
         }
     }else{
         document.getElementById('ultimosPremios').innerHTML= 'no hay nada flaco'
@@ -99,32 +102,29 @@ function actualizar(){
     localStorage.setItem('guardados', premioJson);
 }
 
+function filtrado(valor){
+    return valor.rareza === '1';
+};
+
+function filtrado2(valor){
+    //let premio = document.getElementById('ultimoClickeado').src; //Esto devuelve el //file:C de carpinchos.
+    let a = valor.srcImg;    //Esto devuelve el carpinchos/2.jpg que tengo en el objeto.
+    //En el if hacemos un string compare para ver si el primer string incluye el segundo dentro, por que no son exactamente iguales, solo la parte de carpinchos/numero.jpg
+    //Hace falta agregar para la rareza que tengo en filtrado 1 y esas manos
+    if(variablePremio.includes(a)){
+        return true
+    }else{
+        return false
+    }
+}
+
 function aPremiosGuardados(){
-    //let premio = document.getElementById('ultimoClickeado').src;
-    //let mis_datos_json = JSON.stringify(premio);
-    //localStorage.setItem("premiosGuardados", mis_datos_json);
-    let premio = document.getElementById('ultimoClickeado').src;
-    ultimos.push(premio);
-    actualizar()
-}
-
-function borrarPremio(){
-    guardadoPremio.style.display = 'none';
-    //var borro = document.getElementById(aBorrar);
-    //borro.remove()
-    var source = document.getElementById('guardadoClickeado').src;
-    var index = ultimos.indexOf(source);
-    if (index > -1){
-        ultimos.splice(index, 1);
-    };
+    premioJson = sessionStorage.getItem("ultimos");
+    mis_datos = JSON.parse(premioJson);
+    variablePremio = document.getElementById('ultimoClickeado').src;
+    var guardar = mis_datos.find(filtrado2);
+    ultimos.push(guardar);
     actualizar();
-    mostrarGuardados()
-}
-
-function cerrarGuardarPremio(){
-    aPremiosGuardados();
-    mostrarGuardados();
-    cajaP.style.display = 'none';
 }
 
 function mostrarGuardados(){
@@ -142,12 +142,34 @@ function mostrarGuardados(){
             imag.setAttribute('onclick', 'mostrarGuardado(this.id)');
             imag.setAttribute('class', 'chiquitas')
             document.getElementById('premiosGuardados').appendChild(imag);
-            document.getElementById('guardado' + i).src = mis_datos[i];
+            document.getElementById('guardado' + i).src = mis_datos[i].srcImg;
             //document.getElementById('premiosGuardados').innerHTML+= '   ';
         }
     }else{
         document.getElementById('premiosGuardados').innerHTML = 'No hay Premios guardados';
     }
+}
+
+function borrarPremio(){
+    guardadoPremio.style.display = 'none';
+    //var borro = document.getElementById(aBorrar);
+    //borro.remove()
+    variablePremio = document.getElementById('guardadoClickeado').src;
+    //var source = document.getElementById('guardadoClickeado').src;
+    //var index = ultimos.indexOf(variablePremio);
+    var index = ultimos.findIndex(filtrado2)
+    if (index > -1){
+        ultimos.splice(index, 1);
+    };
+    actualizar();
+    mostrarGuardados()
+}
+
+
+function cerrarGuardarPremio(){
+    aPremiosGuardados();
+    mostrarGuardados();
+    cajaP.style.display = 'none';
 }
 
 function cargarPremiosGuardados(){
@@ -185,7 +207,22 @@ Esto hace que siempre haya un objeto de 5 espacios (por ejemplo) auqneu esten va
 creamos una funcion que rellene esos espacios.*/
 
 
+/*02/09
+Problema: Hay que guardar al objeto entero al hacer click en guardar premio
+Que hacer?(posible solucion): Usar la rareza como segundo filtro para poder diferenciar a los objetos con el mismo srcImg,
+con filter buscar entre el session storage los que tengan el mismo srcImg y ademas la misma rareza, guardar 1 de ellos, se guardara en el local storage.
 
+Otra posible solucion: la otra seria darle una clase a las imagenes dependiendo de la rareza, ya en la ruleta, y que dependiendo de la clase que tenga, se haga un objeto 
+con la rareza y el srcImg. Esto me parece mas entreverado que simplemente hacer lo de arriba.
+
+
+
+Otra cosa aparte: lo que queria hacer de crear un array con los indices de los objetos que salieron en la ruleta, y llamarlos
+despues en la biblioteca con un fetch es una cagada, no se va a guardar la rareza que le apliquemos
+a el objeto se perdera (o nos va a complicar) cuando lo llamemos en la biblioteca.
+
+La solucion es seguir como voy ahora, guardar el objeto entero, y despues ver como guardarlo cuando toquemos eso.
+*/ 
 
 
 
