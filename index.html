@@ -45,10 +45,41 @@
         <button id="id1" onclick='moneyy();boton();'>Cada click liquida un canguro: <a id='conteo'>0</a></button>
         <p>Este sitio esta dedicado a los carpinchos veteranos de guerra en el conflicto belico contra canguros en 1972.</p>
         <br><br>
-        <img id='premiosGuardados'>
+        <form action="" onsubmit="testChequeo()" class="center bordesito m"><!--Hacer un test donde se preguntan boludeces de carpinchos, ej: nombre cientifico, forma, cosas de esas.-->
+            
+            <div><strong>Nombre Cientifico</strong><br><br>
+                <label for="primPrim">Carpinchus Adictus</label>
+                <input id='primPrim' type="radio" value="1" name="nombreCientifico" onclick="respuesta1('1')"><br>
+                <label for="segPrim">Carponso alonso</label>
+                <input type="radio" id="segPrim" value='2' name="nombreCientifico" onclick="respuesta1('2')"><br>
+                <label for="tercPrim">Hydrochoerus hydrochaeris</label>
+                <input type="radio" id='tercPrim' value="3" name="nombreCientifico" onclick="respuesta1('3')"><br>
+            </div><br>
+            
+            <div><strong>Que es?</strong><br><br>
+                <label for="primSeg">Roedor</label>
+                <input type="radio" id="primSeg" value='1' name="que_es?" onclick="respuesta2('1')"><br>
+                <label for="segSeg">Rata</label>
+                <input type="radio" id="segSeg" value="2" name="que_es?" onclick="respuesta2('2')"><br>
+                <label for="tercSeg">Raton</label>
+                <input type="radio" id="tercSeg" value="3" name="que_es?" onclick="respuesta2('3')"><br>
+            </div><br>
+
+            <div><strong>Cuantas patas tiene?</strong><br><br>
+                <label for="primTerc">3</label>
+                <input type="radio" id="primTerc" value="1" name="cuantas_patas_tiene?" onclick="respuesta3('1')"><br>
+                <label for="segTerc">4</label>
+                <input type="radio" id="segTerc" value="2" name="cuantas_patas_tiene?" onclick="respuesta3('2')"><br>
+                <label for="">:)</label>
+                <input type="radio" id="tercTerc" value="3" name="cuantas_patas_tiene?" onclick="respuesta3('3')"><br>
+            </div><br>
+            <input type="submit">
+        </form>
+        <!--<img id='premiosGuardados'>-->
         <script src="js/boton.js"></script>
         <script src='js/moneda.js'></script>
         <script src="js/ruleta.js"></script>
+        <script src="js/test de carpinchos.js"></script>
     </body>
 </html>
 

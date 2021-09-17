@@ -118,6 +118,11 @@ img.gif{
     text-align: center;
 }
 
+.m{
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
 button{
     padding: 3px;
     margin: 5px;
@@ -133,7 +138,7 @@ button{
     width: 100px;
     display: inline;
     margin: 5px;
-    border: black 2px solid;
+    /*border: black 2px solid;*/
 }
 
 .chiquitas:hover{
@@ -166,9 +171,9 @@ button{
     width: 35%;
 }
 
-#premiesito{
+/*#premiesito{
     border: yellowgreen 3px solid;
-}
+}*/
 
 /*El boton para cerrar*/
 .cerrar{
@@ -183,4 +188,37 @@ button{
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.bordesito{
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(carpinchos/border.png) 30 round;
+}
+
+.comun{
+    border: yellowgreen 5px solid;
+}
+
+.piola{
+    border: steelblue 5px outset;
+}
+
+.soviet{
+    border: red 5px outset;
+}
+
+.invert{
+    filter:invert(100%);
+    border: green 5px double;
+}
+
+.psycho{
+    filter:/*hue-rotate(90deg)*/ sepia(100%);
+    border: hotpink 5px dashed;
+}
+
+.frito{
+    filter:hue-rotate(180deg) saturate(8);
+    border: ivory 5px double;
 }

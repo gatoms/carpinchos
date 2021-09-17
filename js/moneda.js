@@ -1,22 +1,24 @@
 var monedas=0;
 var ide = 0;
 
-function conteo(){
-    monedas += 2;
+function conteo(cant){
+    monedas += cant;
     document.getElementById('monederoR').innerHTML=monedas;
+    localStorage.setItem('monedero', JSON.stringify(monedas));
     //Hacer un atributo unico para la moneda especifica que clickeamos, el cual se va a luego usar para eliminarse a si misma
 }
 
 function conteoNeg(){
     monedas -= 1;
     document.getElementById('monederoR').innerHTML=monedas;
+    localStorage.setItem('monedero', JSON.stringify(monedas));
 }
 
 function eliminacion(ident){
     var coso = document.getElementById(ident);
     document.getElementById('section').removeChild(coso);
     document.getElementById('pickup').play();
-    conteo();
+    conteo(2);
 }
 
 function moneyy(){
@@ -30,7 +32,7 @@ function moneyy(){
 
     const moneda = document.getElementById(ide);
     
-    let xPosition = 10;
+    let xPosition = Math.floor(Math.random()*800);
     let yPosition = 10;
     let xSpeed = 4;
     let ySpeed = 4;
@@ -54,4 +56,8 @@ function moneyy(){
     },1000/60);
 }
 
-
+document.addEventListener("DOMContentLoaded", function (e){
+    jason = localStorage.getItem("monedero");
+    monedas = JSON.parse(jason);
+    document.getElementById('monederoR').innerHTML=monedas;
+});

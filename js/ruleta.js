@@ -1,6 +1,7 @@
 var cajaP=document.getElementById('cajaPremio');
 var botonRul = document.getElementById('rulbot');
 var variablePremio = ''
+var rareza_premio = ''
 const url = 'https://gatoms.github.io/panaderia/carpinchos.json'
 const ultimos = []
 
@@ -32,11 +33,33 @@ function premio(){
     cajaP.style.display = 'block';
 }*/
 
+function rarezaPremio(valor){
+    if(valor>=0 && valor<0.4){
+        return 'comun'
+    }else if(valor>=0.4 && valor<0.7){
+        return 'piola'
+    }else if(valor>=0.7 && valor<0.85){
+        return 'soviet'
+    }else if(valor>=0.85 && valor<0.9){
+        return 'psycho'
+    }else if(valor>=0.9 && valor<0.95){
+        return 'frito'
+    }else if(valor>=0.95 && valor<=1){
+        return 'invert'
+    }
+}
+
+
 function elFetch(){
     fetch(url).then(respuesta=>respuesta.json()).then(datos=>{
-        var rareza = Math.floor(Math.random()*68);
-        document.getElementById('premiesito').setAttribute('src', datos[rareza].srcImg);
-        ultimos.push(datos[rareza])
+        let numero = Math.floor(Math.random()*68);
+        let rare = rarezaPremio(Math.random());
+        let temp = datos[numero];
+        temp.rareza = rare;
+        document.getElementById('premiesito').setAttribute('src', temp.srcImg);
+        document.getElementById('premiesito').setAttribute('class', rare);
+        ultimos.push(temp);
+        //document.getElementById('premiesito').setAttribute('class', 'bordesito')
     });
 }
 
@@ -75,6 +98,8 @@ function mostrar(id){
     cajaP.style.display= 'block';
     var coso=document.getElementById(id);
     document.getElementById('ultimoClickeado').src = coso.src
+    document.getElementById('ultimoClickeado').setAttribute('class', coso.getAttribute('class'));
+    //Aca hay que arreglar, se sigue mostrando el chiquitas en la clase (una opcion es filtrar y todas esas manos, pero ta complicado, otra opcion seria modificar el string que devuelve get attribute, pero idk tambien)
 }
 
 //Idem mostrar pero para los elementos de la biblioteca de premios guardados. (se podria modificar para que sea la misma funcion)
@@ -82,8 +107,16 @@ function mostrarGuardado(id){
     guardadoPremio.style.display= 'block';
     var coso = document.getElementById(id);
     document.getElementById('guardadoClickeado').src = coso.src;
+    variablePremio = document.getElementById('guardadoClickeado').src;
+    rareza_premio = coso.getAttribute('class');
+    var index = ultimos.findIndex(filtrado2);
+    document.getElementById('nombrePremio').innerHTML = ultimos[index].name;
+    document.getElementById('guardadoClickeado').setAttribute('class', ultimos[index].rareza)
+    //document.getElementById('guardadoClickeado').setAttribute('class', ultimos[index].rareza);
 }
 
+
+//Muestra los premios que se ganaron en el index (se borrar despues de actualizar la pagina)
 function mostrarPremio(){
     if (sessionStorage.getItem("ultimos")) {
         premioJson = sessionStorage.getItem("ultimos");
@@ -93,7 +126,7 @@ function mostrarPremio(){
             var imag = document.createElement('img');
             imag.id = 'ultimo' + i;
             imag.setAttribute('onclick', 'mostrar(this.id)');
-            imag.setAttribute('class', 'chiquitas')
+            imag.setAttribute('class', 'chiquitas' + ' ' + mis_datos[i].rareza);
             document.getElementById('ultimosPremios').appendChild(imag);
             document.getElementById('ultimo' + i).src = mis_datos[i].srcImg;
         }
@@ -102,11 +135,14 @@ function mostrarPremio(){
     }
 }
 
+//Actualiza el local storage cada ves que se modifica algo
 function actualizar(){
     let premioJson = JSON.stringify(ultimos);
     localStorage.setItem('guardados', premioJson);
 }
 
+
+//funciones para filtrar (hay que limpiar)
 function filtrado(valor){
     return valor.rareza === '1';
 };
@@ -114,24 +150,28 @@ function filtrado(valor){
 function filtrado2(valor){
     //let premio = document.getElementById('ultimoClickeado').src; //Esto devuelve el //file:C de carpinchos.
     let a = valor.srcImg;    //Esto devuelve el carpinchos/2.jpg que tengo en el objeto.
+    let b = valor.rareza;
     //En el if hacemos un string compare para ver si el primer string incluye el segundo dentro, por que no son exactamente iguales, solo la parte de carpinchos/numero.jpg
     //Hace falta agregar para la rareza que tengo en filtrado 1 y esas manos
-    if(variablePremio.includes(a)){
+    if(variablePremio.includes(a) && rareza_premio.includes(b)){
         return true
     }else{
         return false
     }
 }
 
+//Guarda el objeto que se eligio en la biblioteca
 function aPremiosGuardados(){
     premioJson = sessionStorage.getItem("ultimos");
     mis_datos = JSON.parse(premioJson);
     variablePremio = document.getElementById('ultimoClickeado').src;
+    rareza_premio = document.getElementById('ultimoClickeado').getAttribute('class');
     var guardar = mis_datos.find(filtrado2);
     ultimos.push(guardar);
     actualizar();
 }
 
+//Muestra los carpinchos guardados
 function mostrarGuardados(){
     var div=document.getElementById('premiosGuardados');
     div.remove();
@@ -145,7 +185,7 @@ function mostrarGuardados(){
             var imag = document.createElement('img');
             imag.id = 'guardado' + i;
             imag.setAttribute('onclick', 'mostrarGuardado(this.id)');
-            imag.setAttribute('class', 'chiquitas')
+            imag.setAttribute('class', 'chiquitas' + ' ' + mis_datos[i].rareza)
             document.getElementById('premiosGuardados').appendChild(imag);
             document.getElementById('guardado' + i).src = mis_datos[i].srcImg;
             //document.getElementById('premiosGuardados').innerHTML+= '   ';
@@ -155,11 +195,13 @@ function mostrarGuardados(){
     }
 }
 
+//Borra el carpincho de biblioteca (los guardados solo)
 function borrarPremio(){
     guardadoPremio.style.display = 'none';
     //var borro = document.getElementById(aBorrar);
     //borro.remove()
     variablePremio = document.getElementById('guardadoClickeado').src;
+    //rareza_premio = document.getElementById('guardadoClickeado').getAttribute('class');
     //var source = document.getElementById('guardadoClickeado').src;
     //var index = ultimos.indexOf(variablePremio);
     var index = ultimos.findIndex(filtrado2)
@@ -170,13 +212,14 @@ function borrarPremio(){
     mostrarGuardados()
 }
 
-
+//otra funcion mas para cerrar el modal
 function cerrarGuardarPremio(){
     aPremiosGuardados();
     mostrarGuardados();
     cajaP.style.display = 'none';
 }
 
+//Carga los premios al entrar en biblioteca (se podria hacer con un DOMcontentloaded pero ta)
 function cargarPremiosGuardados(){
     misPremiosJson = localStorage.getItem('guardados');
     misPremios = JSON.parse(misPremiosJson);
@@ -186,6 +229,7 @@ function cargarPremiosGuardados(){
     }
 }
 
+//Lo mismo de arriba pero que ademas muestra los premios
 function cargar(){
     mostrarPremio()
     cargarPremiosGuardados();
@@ -228,13 +272,6 @@ a el objeto se perdera (o nos va a complicar) cuando lo llamemos en la bibliotec
 
 La solucion es seguir como voy ahora, guardar el objeto entero, y despues ver como guardarlo cuando toquemos eso.
 */ 
-
-
-
-
-
-
-
 
 /*function guardarPremio(){
     let premio = {premio: document.getElementById('premiesito').src}
