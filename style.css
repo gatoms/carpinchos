@@ -222,3 +222,7 @@ button{
     filter:hue-rotate(180deg) saturate(8);
     border: ivory 5px double;
 }
+
+.checked{
+    color: orange;
+}

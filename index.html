@@ -45,7 +45,7 @@
         <button id="id1" onclick='moneyy();boton();'>Cada click liquida un canguro: <a id='conteo'>0</a></button>
         <p>Este sitio esta dedicado a los carpinchos veteranos de guerra en el conflicto belico contra canguros en 1972.</p>
         <br><br>
-        <form action="" onsubmit="testChequeo()" class="center bordesito m"><!--Hacer un test donde se preguntan boludeces de carpinchos, ej: nombre cientifico, forma, cosas de esas.-->
+        <div class="center bordesito m"><!--Hacer un test donde se preguntan boludeces de carpinchos, ej: nombre cientifico, forma, cosas de esas.-->
             
             <div><strong>Nombre Cientifico</strong><br><br>
                 <label for="primPrim">Carpinchus Adictus</label>
@@ -73,8 +73,10 @@
                 <label for="">:)</label>
                 <input type="radio" id="tercTerc" value="3" name="cuantas_patas_tiene?" onclick="respuesta3('3')"><br>
             </div><br>
-            <input type="submit">
-        </form>
+            <button onclick="testChequeo()">Enviar test</button>
+            <p>Promedio: <strong id="promedioTest"></strong></p>
+            <p>Cantidad de test realizados: <strong id="cantidadTest"></strong> </p>
+        </div>
         <!--<img id='premiosGuardados'>-->
         <script src="js/boton.js"></script>
         <script src='js/moneda.js'></script>
